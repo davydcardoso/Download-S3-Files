@@ -14,7 +14,7 @@ export async function worker({ fileName }: QueueTask) {
     fileStream
       .pipe(fs.createWriteStream(`./public/${fileName}`))
       .on("finish", () => {
-        resolve("Arquivo baixado com sucesso");
+        resolve("File downloaded successfully");
       })
       .on("error", (err) => {
         reject(err);

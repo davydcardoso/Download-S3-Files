@@ -3,7 +3,6 @@ import AWS from "aws-sdk";
 import { s3 } from "./services/s3";
 import { queue } from "./lib/queue";
 
-
 async function populateQueue() {
   AWS.config.update({ region: "us-west-1" });
 
@@ -11,7 +10,7 @@ async function populateQueue() {
 
   s3.listObjects(bucketParams, async (err, data) => {
     if (err) {
-      console.log(`Erro ao acessar S3 | Erro: ${err.message}`);
+      console.log(`Error accessing S3 | Erro: ${err.message}`);
       return;
     }
 
@@ -20,11 +19,11 @@ async function populateQueue() {
         console.log(contents.Key);
         queue
           .push({ fileName: contents.Key as string })
-          .then(() => {
-            console.log("Arquivo baixado com sucesso");
+          .then((status) => {
+            console.log(status);
           })
           .catch((err) => {
-            console.log("Erro ao baixar arquivo ", err);
+            console.log("Error downloading file", err);
           });
       });
     }
