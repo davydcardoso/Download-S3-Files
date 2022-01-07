@@ -4,8 +4,6 @@ import { s3 } from "../services/s3";
 
 export async function worker({ fileName }: QueueTask) {
   return new Promise<string>((resolve, reject) => {
-    const bucketParams = { Bucket: process.env.BUCKET as string };
-
     const options = {
       Bucket: process.env.BUCKET as string,
       Key: fileName,
